@@ -34,3 +34,18 @@ def test_mashings(mashings, result1):
 def test_nonmashings(nonmashings, result2):
     assert is_kbs(input_data = nonmashings) == result2
 
+
+@pytest.mark.parametrize("phrases, result3", [
+    ("This is a asdjhasijd", [["asdjhasijd"]]),
+    ("a", 0),
+    ("b", 0),
+    ("The world is a beautiful place", 0),
+    ("Be careful ieieieie", [["ieieieie"]]),
+    ("It's time to dudududuel", [["dudududuel"]]),
+    ("This is just a akdshjsaj message aaaaaa", [["akdshjsaj"], ["aaaaaa"]]),
+    ("I love batataaskdhjaksj", [["batataaskdhjaksj"]])
+])
+
+def test_phrases(phrases, result3):
+    assert is_kbs(input_data = phrases, analyzer='phrases') == result3
+

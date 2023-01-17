@@ -14,4 +14,5 @@ setup(name='isitkbs',
     description=u'Detect keyboard smashing',
     include_package_data=True,
     packages=['isitkbs', 'models'],
+    testpakages =['pytest'],
     install_requires=['scikit-learn', 'nltk'],)

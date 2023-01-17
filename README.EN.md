@@ -20,45 +20,42 @@
     <img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
 </h4>
 
-
-[Read this in english.](https://github.com/fga-eps-mds/2022-2-IsItKbs/blob/main/README.EN.md)
-
-## 📑 Sumário
+## 📑 Summary
 
 - [](#)
-  - [📑 Sumário](#-sumário)
-  - [🔎 Visão Geral](#-visão-geral)
-  - [🛠 Tecnologias utilizadas](#-tecnologias-utilizadas)
-  - [📝 Guia de instalação](#-guia-de-instalação)
-  - [⚙ Funcionalidades](#-funcionalidades)
+  - [📑 Summary](#-sumário)
+  - [🔎 Overview](#-visão-geral)
+  - [🛠 Technologies used](#-tecnologias-utilizadas)
+  - [📝 Installation guide](#-guia-de-instalação)
+  - [⚙ Functionalities](#-funcionalidades)
     - [is_kbs(input_data, analyzer, model)](#is_kbsinput_data-analyzer-model)
-  - [📋 Exemplos](#-exemplos)
-  - [👨‍🔧 Como contribuir?](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/contribution_guide.html)
-  - [📚 Documentação](#-documentação)
-  - [📁 Diretórios](#-diretórios)
-  - [👨‍💻 Contribuidores](#-contribuidores)
-  - [©Licença](#licença)
+  - [📋 Examples](#-exemplos)
+  - [👨‍🔧 How to contribute?](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/contribution_guide.html)
+  - [📚 Documentation](#-documentação)
+  - [📁 Directories](#-diretórios)
+  - [👨‍💻 Contributors](#-contribuidores)
+  - [©Licence](#licença)
     <br>
 
 <br>
 
-## 🔎 Visão Geral
+## 🔎 Overview
 
-<li>Qual o objetivo desse software?</li>
-O Is it KBS é um pacote python com funções capazes de determinar se entradas de texto são consideradas ou não keyboard smashing, sendo assim, cientistas de dados podem usar a biblioteca para auxiliá-los no processo de limpeza de bases de dados.
+<li>What is the purpose of this software?</li>
+Is it KBS is a python package with functions capable of determining whether or not text entries are considered keyboard smashing, so data scientists can use the library to assist them in the process of cleaning up databases.
 
 <br>
 
-<li>O que é keyboard smashing?</li>
-Keyboard smashing é a entrada ilógica e desordenada de dados, que acaba por comprometer a análise textual por sistemas de software.
+<li>What is keyboard smashing?</li>
+Keyboard smashing is illogical and disorderly data entry, which ends up compromising textual analysis by software systems.
 Ex.:
-<li>yyyyyy - É keyboard smashing.</li>
-<li>aslkhfg - É keyboard smashing.</li>
-<li>hello - Não é keyboard smashing.</li>
+<li>yyyyyy - Is keyboard smashing.</li>
+<li>aslkhfg - IS keyboard smashing.</li>
+<li>hello - Is not keyboard smashing.</li>
 
 <br>
 
-## 🛠 Tecnologias utilizadas
+## 🛠 Technologies used
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white)
@@ -71,10 +68,10 @@ Ex.:
 
 <br>
 
-## 📝 Guia de instalação
+## 📝 Installation guide
 
-<li>Necessário python 3 e pip.</li>
-<li>Faça a instalação do nosso pacote com o pip no seu terminal python (as demais bibliotecas necessárias são instaladas  automáticamente com o comando abaixo):</li>
+<li>Python 3 and pip required.</li>
+<li>Install our package with pip in your python terminal (the other necessary libraries are installed automatically with the command below):</li>
 
 ```
 pip install isitkbs
@@ -82,7 +79,7 @@ pip install isitkbs
 
 <br>
 
-## ⚙ Funcionalidades
+## ⚙ Functionalities
 
 ### is_kbs(input_data, analyzer, model)
 
@@ -98,11 +95,11 @@ is_kbs(input_data, analyzer, model)
 
 <br>
 
-Para novas versões, a ideia é desenvolver features que auxiliam no tratamento de keyboard smashing em textos, banco de dados, entre outros.
+For new versions, the idea is to develop features that help in the treatment of keyboard smashing in texts, databases, among others.
 
 <br>
 
-## 📋 Exemplos
+## 📋 Examples
 
 ```python
 is_kbs('yyyyyy')
@@ -125,32 +122,32 @@ is_kbs('aspdo asocjn', analyzer='phrases')
 ```
 <br>
 
-## 📚 Documentação
+## 📚 Documentation
 
-* [Código de conduta](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/conduct_code.html)<br>
-* [Metodologia de Comunicação](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/metodologia_comunicacao.html)<br>
-* [Mapa de histórias de usuário](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/usermap_story.html)<br>
+* [Code of conduct](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/conduct_code.html)<br>
+* [Communicational Methodology](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/metodologia_comunicacao.html)<br>
+* [User story map](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/usermap_story.html)<br>
 * [WorkFlow](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/workflow.html)<br>
 * [RoadMap](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/roadmap.html)
 
 <br>
 
-## 📁 Diretórios
+## 📁 Directories
 
-<p>/.github <- Templates para issues e pull requests.<p>
-<p>/estudos <- Projetos e scripts pequenos para treino da equipe.<p>
-<p>/data <- Bases de dados utilizadas no treinamento do algoritmo.<p>
-<p>/dist <- Distribuições do nosso pacote comprimidas.<p> 
-<p>/docs <- Documentações, principalmente da gitpage.<p> 
-<p>/isitkbs.egg-info <- Informações de empacotamento.<p> 
-<p>/isitkbs <- Definição das funções que serão utilizadas pelos usuários.<p> 
-<p>/models <- Modelos já treinados.<p>
-<p>/notebooks <- Jupyter notebooks usados para testes de funcionalidades.<p>
-<p>/src <- Scripts para tratamento de dados, feature engineering e treinamento de algoritmos.<p>
-
+<p>/.github <- Templates for issues and pull requests.<p>
+<p>/studies <- Small projects and scripts for team training.<p>
+<p>/data <- Databases used in algorithm training.<p>
+<p>/dist <- Compressed distributions of our package.<p>
+<p>/docs <- Documentation, mainly from gitpage.<p>
+<p>/isitkbs.egg-info <- Packaging information.<p>
+<p>/isitkbs <- Definition of functions that will be used by users.<p>
+<p>/models <- Models already trained.<p>
+<p>/notebooks <- Jupyter notebooks used for feature testing.<p>
+<p>/src <- Scripts for data processing, feature engineering and algorithm training.<p>
+  
 <br>
 
-## 👨‍💻 Contribuidores
+## 👨‍💻 Contributors
 
 <table>
   <tr>
@@ -166,6 +163,6 @@ is_kbs('aspdo asocjn', analyzer='phrases')
 
 <br>
 
-## ©Licença
+## ©Licence
 
 This software is licensed under the [MIT](https://github.com/nhn/tui.editor/blob/master/LICENSE) ©

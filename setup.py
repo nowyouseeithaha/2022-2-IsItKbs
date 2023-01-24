@@ -1,10 +1,10 @@
 from setuptools import setup
 
-with open("description.md", "r") as arq:
+with open("description.md", "r", encoding='utf-8') as arq:
     long_description = arq.read()
 
 setup(name='isitkbs',
-    version='1.0.0',
+    version='1.0.1',
     license='MIT License',
     author='Arthur de Melo, Arthur Grandão, Douglas Alves, Gabriel Campello, Paulo Victor, Rafael Ferreira, Sidney Fernando',
     long_description=long_description,
@@ -15,4 +15,4 @@ setup(name='isitkbs',
     include_package_data=True,
     packages=['isitkbs', 'models'],
     testpakages =['pytest'],
-    install_requires=['scikit-learn', 'nltk'],)
+    install_requires=['scikit-learn', 'nltk', 'matplotlib'],)

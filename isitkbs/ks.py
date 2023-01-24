@@ -147,7 +147,10 @@ class isitkbs(object):
                 wordskbs = self.sentkbs(df.iloc[row, col])
                 if (len(wordskbs) != 0):
                     if (just_word == False):
-                        mashsIndex.append(row)
+                        if(value == 'itskbs'):
+                            mashsIndex.append(row)
+                        else:
+                            df.iloc[row, col] = value
                     else:
                         df.iloc[row, col] = self.replacekbs(
                             df.iloc[row, col], value)

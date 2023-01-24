@@ -1,6 +1,9 @@
+import os
 
-mashing = open('C:\\Users\\arthu\\Desktop\\MDS\\2022-2-Squad03\\data\\raw\\mashing.txt', 'a')
-naturals = open('C:\\Users\\arthu\\Desktop\\MDS\\2022-2-Squad03\\data\\raw\\large-2014.txt', 'a')
+os_path = os.path.dirname(os.path.realpath('__file__'))
+
+mashing = open(os_path + '\\data\\raw\\mashing.txt', 'a')
+naturals = open(os_path + '\\data\\raw\\large-2014.txt', 'a')
 
 add_text = input("Write what you want to add: ")
 choice = input("mashing or naturals? (M/N) ")

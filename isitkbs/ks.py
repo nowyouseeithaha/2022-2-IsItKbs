@@ -1,11 +1,9 @@
 import pickle
 import os
-from nltk import everygrams, ngrams, word_tokenize, FreqDist
+from nltk import everygrams
 import matplotlib.pyplot as plt
-import re
 import pandas as pd
-import types
-
+import re
 
 class isitkbs(object):
     
@@ -16,15 +14,15 @@ class isitkbs(object):
 
     # Função para determinar se uma palavra é keyboardsmashing
     # A entrada deve ser uma palavra
-    def is_word_kbs(self, input_data):
+    def wordkbs(self, input_data):
         if not isinstance(input_data, str):
             raise TypeError("input_data must be a string")
 
-        with open(f'../models/{self.model}.pkl', 'rb') as f:
-            trained_model = pickle.load(f)
+        modelpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), f'models/{self.model}.pkl')
+        vectpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'models/tfid_vectorizer.pkl')
 
-        with open('../models/tfid_vectorizer.pkl', 'rb') as r:
-            vectorizer = pickle.load(r)
+        trained_model = pickle.load(open(modelpath, 'rb'))
+        vectorizer = pickle.load(open(vectpath, 'rb'))
 
         if (len(input_data) == 1):
             return 0
@@ -46,7 +44,7 @@ class isitkbs(object):
 
     # Função para determinar quais são os keyboard smashing em uma frase
     # A entrada deve ser uma string ou uma lista de palavras
-    def is_sent_kbs(self, input_data):
+    def sentkbs(self, input_data):
         mashs = []
 
         if type(input_data) != str and type(input_data) != list:
@@ -61,10 +59,10 @@ class isitkbs(object):
         for i in range(len(words)):
             if type(words[i]) == str:
                 if ' ' in words[i]:
-                    mashs_partial = self.is_sent_kbs(words[i])
+                    mashs_partial = self.sentkbs(words[i])
                     mashs.append(mashs_partial)
                 else:
-                    res = self.is_word_kbs(words[i])
+                    res = self.wordkbs(words[i])
             else:
                 continue
             if res == 1:
@@ -78,7 +76,7 @@ class isitkbs(object):
 
         cont_char = {}
 
-        data = self.is_sent_kbs(input_data)
+        data = self.sentkbs(input_data)
         data = ' '.join(data)
 
         if (len(data) != 0):
@@ -113,7 +111,7 @@ class isitkbs(object):
         # Plota o gráfico
         plt.bar(x_axis, y_axis)
 
-    def replace_kbs(self, input_data, value=None, inplace=False, just_word=False):
+    def replacekbs(self, input_data, value=None, inplace=False, just_word=False):
         """ 
         Parâmetros:
         dataframe: dataframe pandas do qual os keyboard smashing vão ser substituidos.
@@ -146,12 +144,12 @@ class isitkbs(object):
         mashsIndex = []
         for row in range(nRow):
             for col in range(nCol):
-                wordskbs = self.is_sent_kbs(df.iloc[row, col])
+                wordskbs = self.sentkbs(df.iloc[row, col])
                 if (len(wordskbs) != 0):
                     if (just_word == False):
                         mashsIndex.append(row)
                     else:
-                        df.iloc[row, col] = self.replace_kbs(
+                        df.iloc[row, col] = self.replacekbs(
                             df.iloc[row, col], value)
         df.drop(mashsIndex, axis=0, inplace=True)
         df.reset_index(drop=True, inplace=True)
@@ -163,7 +161,7 @@ class isitkbs(object):
             isList = False
             input_data = input_data.split()
 
-        wordskbs = self.is_sent_kbs(input_data)
+        wordskbs = self.sentkbs(input_data)
         output_data = []
         for i in input_data:
             if ' ' in i:

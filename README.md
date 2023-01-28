@@ -99,18 +99,18 @@ Para novas versões, a ideia é desenvolver features que auxiliam no tratamento 
 ## 📋 Exemplos
 
 ```python
-kbs.sentkbs('yyyyyy')
+kbs.wordkbs('yyyyyy')
 1
 ```
 
 ```python
-kbs.sentkbs('Hello')
+kbs.wordkbs('Hello')
 0
 ```
 
 ```python
-kbs.wordkbs('Hello world')
-0
+kbs.sentkbs('Hello world')
+[]
 ```
 
 ```python

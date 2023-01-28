@@ -31,14 +31,12 @@
   - [🛠 Tecnologias utilizadas](#-tecnologias-utilizadas)
   - [📝 Guia de instalação](#-guia-de-instalação)
   - [⚙ Funcionalidades](#-funcionalidades)
-    - [is_kbs(input_data, analyzer, model)](#is_kbsinput_data-analyzer-model)
+    - [is\_kbs(input\_data, analyzer, model)](#is_kbsinput_data-analyzer-model)
   - [📋 Exemplos](#-exemplos)
-  - [👨‍🔧 Como contribuir?](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/contribution_guide.html)
   - [📚 Documentação](#-documentação)
   - [📁 Diretórios](#-diretórios)
   - [👨‍💻 Contribuidores](#-contribuidores)
   - [©Licença](#licença)
-    <br>
 
 <br>
 
@@ -88,13 +86,9 @@ pip install isitkbs
 
 ```python
 from isitkbs import *
-is_kbs(input_data, analyzer, model)
+kbs = is_kbs()
 ```
-
-- input_data: dados de entrada representados por uma string
-- analyzer='word': análise de uma palavra (retorna positivo(1) ou negativo (0) se é keyboard smashing)
-- analyzer='phrases': retorna quais palavras são keyboard smashing de uma frase de entrada
-- model: modelo utilizado ('randomForest' por padrão)
+- model: modelo utilizado ('randomForest' por padrão, há também naivebayes)
 
 <br>
 
@@ -105,23 +99,23 @@ Para novas versões, a ideia é desenvolver features que auxiliam no tratamento 
 ## 📋 Exemplos
 
 ```python
-is_kbs('yyyyyy')
+kbs.sentkbs('yyyyyy')
 1
 ```
 
 ```python
-is_kbs('Hello')
+kbs.sentkbs('Hello')
 0
 ```
 
 ```python
-is_kbs('Hello world', analyzer='phrases')
+kbs.wordkbs('Hello world')
 0
 ```
 
 ```python
-is_kbs('aspdo asocjn', analyzer='phrases')
-[['aspdo'], ['asocjn']]
+kbs.sentkbs('aspdo asocjn')
+['aspdo', 'asocjn']
 ```
 <br>
 

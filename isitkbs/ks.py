@@ -4,6 +4,10 @@ from nltk import everygrams
 import matplotlib.pyplot as plt
 import pandas as pd
 import re
+import string
+
+import warnings
+warnings.filterwarnings("ignore")
 
 class isitkbs(object):
     
@@ -24,13 +28,15 @@ class isitkbs(object):
         trained_model = pickle.load(open(modelpath, 'rb'))
         vectorizer = pickle.load(open(vectpath, 'rb'))
 
-        if (len(input_data) == 1):
+        if (len(input_data) <= 2):
             return 0
-        input_data = [input_data]
+        
+        word = input_data.translate(str.maketrans("", "", string.punctuation))
+        word = [word]
         input_ngrams = []
 
-        for i in range(len(input_data)):
-            ngram = map(''.join, list(everygrams(input_data[i], 2, 4)))
+        for i in range(len(word)):
+            ngram = map(''.join, list(everygrams(word[i], 2, 4)))
             input_ngrams.extend(ngram)
 
         predprob = trained_model.predict_proba(

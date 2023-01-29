@@ -82,7 +82,7 @@ pip install isitkbs
 
 ## ⚙ Funcionalidades
 
-### is_kbs(input_data, analyzer, model)
+### is_kbs(model)
 
 ```python
 from isitkbs import *

@@ -4,10 +4,6 @@ from nltk import everygrams
 import matplotlib.pyplot as plt
 import pandas as pd
 import re
-import string
-
-import warnings
-warnings.filterwarnings("ignore")
 
 class isitkbs(object):
     
@@ -21,6 +17,9 @@ class isitkbs(object):
     def wordkbs(self, input_data):
         if not isinstance(input_data, str):
             raise TypeError("input_data must be a string")
+        
+        if aux._is_kbs_manual(string=input_data):
+            return 1
 
         modelpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), f'models/{self.model}.pkl')
         vectpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'models/tfid_vectorizer.pkl')
@@ -28,15 +27,13 @@ class isitkbs(object):
         trained_model = pickle.load(open(modelpath, 'rb'))
         vectorizer = pickle.load(open(vectpath, 'rb'))
 
-        if (len(input_data) <= 2):
+        if (len(input_data) == 1):
             return 0
-        
-        word = input_data.translate(str.maketrans("", "", string.punctuation))
-        word = [word]
+        input_data = [input_data]
         input_ngrams = []
 
-        for i in range(len(word)):
-            ngram = map(''.join, list(everygrams(word[i], 2, 4)))
+        for i in range(len(input_data)):
+            ngram = map(''.join, list(everygrams(input_data[i], 2, 4)))
             input_ngrams.extend(ngram)
 
         predprob = trained_model.predict_proba(
@@ -189,3 +186,93 @@ class isitkbs(object):
         if (isList == False):
             output_data = ' '.join(output_data)
         return output_data
+    
+
+
+class aux(object):
+
+    # Funções auxiliares
+    @classmethod
+    def letter_counter(cls, string, type=None):
+        if (type == 'c'):
+            return {letter: str(string).count(letter) for letter in 'bcdfghjklmnpqrstvwxyz'}
+        elif (type == 'v'):
+            return {letter: str(string).count(letter) for letter in 'aeiou'}  
+        return {letter: str(string).count(letter) for letter in 'abcdefghijklmnopqrstuvwxyz'}
+
+    @classmethod
+    def type_counter(cls, string, type=None):    
+        return sum(cls.letter_counter(string, type).values())
+    
+    @classmethod
+    def type_ratio(cls, string, type=None):
+        return cls.type_counter(string, type)/len(string)
+
+    @classmethod
+    def bigram_counter(cls, lista):
+        dic = {}
+        for i in lista:
+            if i in dic:
+                dic[i] +=1
+            else:
+                dic[i] =1
+        return dic
+
+    @classmethod
+    def bigrams(cls, string):
+        bigrams = []
+        for i in range(len(string)-1):
+            bigrams.append(string[i]+string[i+1])
+
+        return cls.bigram_counter(bigrams)
+
+    @classmethod
+    def bigram_max_occurance(cls, string):
+        try:
+            return (sorted(cls.bigrams(string).values(), reverse=True))[0]
+        except:
+            return 0
+        
+    @classmethod
+    def ttr(cls, string):
+        if (len(string) == 0):
+            return 0
+        ttr = len(set(string)) / len(string)
+        return ttr
+
+
+    def __bigramas_proibidos(self, string):
+        para_analise = ['bx', 'cv', 'cx', 'dx', 'fq', 'fv', 'fx', 'fz', 'gv', 'gx', 'hx', 
+                        'hz', 'jb', 'jc', 'jd', 'jf', 'jg', 'jh', 'jk', 'jl', 'jm', 'jn', 
+                        'jp', 'jq', 'jt', 'jv', 'jw', 'jx', 'jy', 'jz', 'kq', 'kx', 'kz', 
+                        'lx', 'mq', 'mx', 'mz', 'pq', 'px', 'qc', 'qd', 'qe', 'qf', 'qg', 
+                        'qh', 'qj', 'qk', 'ql', 'qm', 'qn', 'qo', 'qp', 'qr', 'qs', 'qt', 
+                        'qv', 'qw', 'qx', 'qy', 'qz', 'sx', 'vb', 'vc', 'vd', 'vf', 'vg', 
+                        'vj', 'vk', 'vm', 'vn', 'vp', 'vq', 'vt', 'vw', 'vx', 'vz', 'wv', 
+                        'wx', 'xj', 'xk', 'xz', 'zg', 'zj', 'zq', 'zx']
+
+        bigramas = self.bigrams(string)
+
+        for bigrama in bigramas:
+            if bigrama in para_analise:
+                return 1
+        return 0    
+    
+    
+    def __repeticao_de_bigramas(self, string, len):
+        max_o = self.bigram_max_occurance(string)
+        if (max_o == 4 and len < 12) or max_o > 4:
+            return True 
+        return False
+
+    
+    # Resultado
+    @classmethod
+    def _is_kbs_manual(cls, string):
+        try:    
+            length = len(string)
+            
+            if cls.__repeticao_de_bigramas(cls, string, length): return 1
+            if cls.__bigramas_proibidos(cls, string): return 1
+        except:
+            return 0

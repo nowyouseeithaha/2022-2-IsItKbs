@@ -206,6 +206,8 @@ class aux(object):
     
     @classmethod
     def type_ratio(cls, string, type=None):
+        if (len(string) == 0):
+            return 0
         return cls.type_counter(string, type)/len(string)
 
     @classmethod

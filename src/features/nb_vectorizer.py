@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.preprocessing import StandardScaler
-from scipy.sparse import vstack, hstack, csr_matrix
+from scipy.sparse import hstack, csr_matrix
 import numpy as np
 import pickle
 

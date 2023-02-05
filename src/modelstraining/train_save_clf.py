@@ -1,7 +1,6 @@
 import os
 import pickle
 import pandas as pd
-from sklearn.naive_bayes import MultinomialNB
 
 def train_and_save_model(clf_class, features_file, target_file, model_file):
     os_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))

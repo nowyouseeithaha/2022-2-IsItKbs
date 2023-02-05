@@ -1,10 +1,6 @@
-import pandas as pd
-from nltk import everygrams
+from auxiliary import type_ratio, ttr
 from sklearn.utils import shuffle
-import numpy as np
-import sys
-import os
-from auxiliary import *
+import pandas as pd
 
 with open (".\\data\\interim\\naturals.csv", "r", encoding="utf-8") as file0:
     X0 = pd.DataFrame(pd.read_csv(file0, keep_default_na=False))

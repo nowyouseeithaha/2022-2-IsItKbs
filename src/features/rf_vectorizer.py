@@ -1,13 +1,8 @@
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.preprocessing import StandardScaler
-from scipy.sparse import vstack, hstack, csr_matrix
+from scipy.sparse import hstack, csr_matrix
 import numpy as np
 import pickle
-from nltk import everygrams
-from sklearn.utils import shuffle
-import sys
-import os
 from sklearn.feature_selection import SelectKBest, chi2
 
 with open (".\\data\\processed\\rfdata.csv", "r", encoding = "utf-8") as file0:

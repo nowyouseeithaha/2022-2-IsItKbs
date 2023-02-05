@@ -34,7 +34,7 @@ class isitkbs(object):
             return 0
 
         input_ngram_features = vectorizer.transform([input_data])
-        if self.model == 'randomforest ':
+        if self.model == 'randomforest':
             input_ngram_features = selector.transform(input_ngram_features)
         # Extract lexical features for the new string
         input_vowel_feature = csr_matrix(np.array(aux.type_ratio(input_data, 'v')).reshape(-1,1))
@@ -250,22 +250,16 @@ class aux(object):
 
 
     def __bigramas_proibidos(self, string):
-        para_analise = ['bx', 'cv', 'cx', 'dx', 'fq', 'fv', 'fx', 'fz', 'gv', 'gx', 'hx', 
-                        'hz', 'jb', 'jc', 'jd', 'jf', 'jg', 'jh', 'jk', 'jl', 'jm', 'jn', 
-                        'jp', 'jq', 'jt', 'jv', 'jw', 'jx', 'jy', 'jz', 'kq', 'kx', 'kz', 
-                        'lx', 'mq', 'mx', 'mz', 'pq', 'px', 'qc', 'qd', 'qe', 'qf', 'qg', 
-                        'qh', 'qj', 'qk', 'ql', 'qm', 'qn', 'qo', 'qp', 'qr', 'qs', 'qt', 
-                        'qv', 'qw', 'qx', 'qy', 'qz', 'sx', 'vb', 'vc', 'vd', 'vf', 'vg', 
-                        'vj', 'vk', 'vm', 'vn', 'vp', 'vq', 'vt', 'vw', 'vx', 'vz', 'wv', 
-                        'wx', 'xj', 'xk', 'xz', 'zg', 'zj', 'zq', 'zx']
+        proibidos = ['zx', 'xj', 'wx', 'vx', 'vq', 'vj', 'vf', 'sx', 'qz', 'qx', 'qk', 'qj', 'qc', 'jz', 'jx', 'jq', 'jf', 'hx', 'gx', 'fq', 'bx', 
+                     'cv', 'cx', 'dx', 'fv', 'fx', 'fz', 'gv', 'jg', 'jk', 'jl', 'jm', 'jt', 'jv', 'jw', 'kq', 'kx', 'kz', 'pq', 'px', 'qd', 'qe', 
+                     'qf', 'qg', 'qh', 'ql', 'qm', 'qn', 'qo', 'qp', 'qr', 'qs', 'qv', 'qw', 'qy', 'vb', 'vm', 'vp', 'vw', 'vz', 'xz', 'zj']
 
         bigramas = self.bigrams(string)
 
         for bigrama in bigramas:
-            if bigrama in para_analise:
+            if bigrama in proibidos:
                 return 1
-        return 0    
-    
+        return 0   
     
     def __repeticao_de_bigramas(self, string, len):
         max_o = self.bigram_max_occurance(string)
@@ -284,7 +278,3 @@ class aux(object):
             if cls.__bigramas_proibidos(cls, string): return 1
         except:
             return 0
-        
-
-nb = isitkbs("naivebayes")
-print(nb.wordkbs("pizza"))

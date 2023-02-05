@@ -4,7 +4,8 @@ from nltk import everygrams
 import matplotlib.pyplot as plt
 import pandas as pd
 import re
-
+from scipy.sparse import vstack, hstack, csr_matrix
+import numpy as np
 class isitkbs(object):
     
     def __init__(self, model='randomforest'):
@@ -22,28 +23,29 @@ class isitkbs(object):
             return 1
 
         modelpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), f'models/{self.model}.pkl')
-        vectpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'models/tfid_vectorizer.pkl')
+        vectpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), f'models/{self.model}_count_vectorizer.pkl')
 
         trained_model = pickle.load(open(modelpath, 'rb'))
         vectorizer = pickle.load(open(vectpath, 'rb'))
 
         if (len(input_data) == 1):
             return 0
-        input_data = [input_data]
-        input_ngrams = []
 
-        for i in range(len(input_data)):
-            ngram = map(''.join, list(everygrams(input_data[i], 2, 4)))
-            input_ngrams.extend(ngram)
+        input_ngram_features = vectorizer.transform([input_data])
+        # Extract lexical features for the new string
+        input_vowel_feature = csr_matrix(np.array(aux.type_ratio(input_data, 'v')).reshape(-1,1))
+        input_consonant_feature = csr_matrix(np.array(aux.type_ratio(input_data, 'c')).reshape(-1,1))
+        input_ttr_feature = csr_matrix(np.array(aux.ttr(input_data)).reshape(-1,1))
 
-        predprob = trained_model.predict_proba(
-            vectorizer.transform(input_ngrams))[:, 1]
+        # Combine the N-gram and lexical features into a single feature matrix
+        input_lexical_features = hstack((input_vowel_feature, input_consonant_feature, input_ttr_feature))
+        input_features = hstack((input_lexical_features, input_ngram_features))
 
-        prob = sum(predprob)/len(input_ngrams)
-        if (prob >= 0.5):
-            return 1
-        else:
-            return 0
+        # Make the prediction using the trained model
+        pred = trained_model.predict(input_features)
+        predprob = trained_model.predict_proba(input_features)
+        print(f"{pred}:{predprob}")
+        return pred[0]
 
     # Função para determinar quais são os keyboard smashing em uma frase
     # A entrada deve ser uma string ou uma lista de palavras
@@ -278,3 +280,7 @@ class aux(object):
             if cls.__bigramas_proibidos(cls, string): return 1
         except:
             return 0
+        
+
+nb = isitkbs("randomforest")
+print(nb.wordkbs("world"))

@@ -11,7 +11,7 @@ with open (".\\data\\processed\\rf_target.csv", "rb") as file1:
     Y = pd.read_csv(file1, keep_default_na=False).squeeze(1)
 
 #Leitura do vetorizador que foi usado nas features
-with open (".\\models\\rf_count_vectorizer.pkl", "rb") as file2:
+with open (".\\models\\randomforest_count_vectorizer.pkl", "rb") as file2:
     vectorizer = pickle.load(file2)
 
 #Instanciação do modelo

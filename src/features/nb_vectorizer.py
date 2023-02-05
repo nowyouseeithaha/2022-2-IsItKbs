@@ -30,5 +30,5 @@ with open('.\\data\\processed\\nb_vectfeatures.pkl', 'wb') as file:
     pickle.dump(features, file)
 
 #Exportação do vetorizador
-with open('.\\models\\nb_count_vectorizer.pkl', 'wb') as file1:  
+with open('.\\models\\naivebayes_count_vectorizer.pkl', 'wb') as file1:  
     pickle.dump(vectorizer, file1)

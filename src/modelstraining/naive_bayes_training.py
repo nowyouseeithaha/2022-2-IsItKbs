@@ -6,7 +6,7 @@ import os
 os_path = os.path.dirname(os.path.realpath('__file__'))
 
 #Leitura das features
-with open (os_path + '/data/processed/nb_vectfeatures.pkl', "rb") as f1:
+with open (os_path + '/data/processed/naivebayes_vectfeatures.pkl', "rb") as f1:
     X = pickle.load(f1)
 
 #Leitura dos targets
@@ -14,7 +14,7 @@ with open (os_path + '/data/processed/nb_target.csv', "rb") as f2:
     Y = pd.read_csv(f2, keep_default_na=False).squeeze(1)
 
 #Leitura do vetorizador que foi usado nas features
-with open (os_path + '/models/nb_count_vectorizer.pkl', "rb") as f3:
+with open (os_path + '/models/naivebayes_count_vectorizer.pkl', "rb") as f3:
     vectorizer = pickle.load(f3)
 
 #Instanciação do modelo

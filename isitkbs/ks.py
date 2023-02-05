@@ -24,14 +24,18 @@ class isitkbs(object):
 
         modelpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), f'models/{self.model}.pkl')
         vectpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), f'models/{self.model}_count_vectorizer.pkl')
+        selpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'models/rf_selectkbest.pkl')
 
         trained_model = pickle.load(open(modelpath, 'rb'))
         vectorizer = pickle.load(open(vectpath, 'rb'))
+        selector = pickle.load(open(selpath, 'rb'))
 
         if (len(input_data) == 1):
             return 0
 
         input_ngram_features = vectorizer.transform([input_data])
+        if self.model == 'randomforest ':
+            input_ngram_features = selector.transform(input_ngram_features)
         # Extract lexical features for the new string
         input_vowel_feature = csr_matrix(np.array(aux.type_ratio(input_data, 'v')).reshape(-1,1))
         input_consonant_feature = csr_matrix(np.array(aux.type_ratio(input_data, 'c')).reshape(-1,1))
@@ -282,5 +286,5 @@ class aux(object):
             return 0
         
 
-nb = isitkbs("randomforest")
-print(nb.wordkbs("world"))
+nb = isitkbs("naivebayes")
+print(nb.wordkbs("pizza"))

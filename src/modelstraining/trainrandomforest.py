@@ -1,23 +1,6 @@
 from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
 import pickle
+from train_save_clf import train_and_save_model
 
-#Leitura das features
-with open (".\\data\\processed\\rf_vectfeatures.pkl", "rb") as file0:
-    X = pickle.load(file0)
-
-#Leitura dos targets
-with open (".\\data\\processed\\rf_target.csv", "rb") as file1:
-    Y = pd.read_csv(file1, keep_default_na=False).squeeze(1)
-
-#Leitura do vetorizador que foi usado nas features
-with open (".\\models\\randomforest_count_vectorizer.pkl", "rb") as file2:
-    vectorizer = pickle.load(file2)
-
-#Instanciação do modelo
-model = RandomForestClassifier()
-model.fit(X,Y)
-
-#Compressão do modelo para um pickle
-with open (".\\models\\randomforest.pkl", "wb") as file3:
-    pickle.dump(model, file3)
+train_and_save_model(RandomForestClassifier, "rf_vectfeatures.pkl", "rf_target.csv", "randomforest.pkl")

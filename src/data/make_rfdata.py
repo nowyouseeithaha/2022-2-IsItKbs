@@ -5,6 +5,7 @@ import numpy as np
 import sys
 import os
 from auxiliary import *
+
 with open (".\\data\\interim\\naturals.csv", "r", encoding="utf-8") as file0:
     X0 = pd.DataFrame(pd.read_csv(file0, keep_default_na=False))
 

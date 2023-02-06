@@ -85,7 +85,7 @@ pip install isitkbs
 
 ```python
 from isitkbs import *
-kbs = is_kbs()
+kbs = isitkbs()
 ```
 - model: modelo utilizado ('randomForest' por padrão, há também naivebayes)
 
@@ -97,6 +97,7 @@ Para novas versões, a ideia é desenvolver features que auxiliam no tratamento 
 
 ## 📋 Exemplos
 
+### wordkbs(inputa_data)
 ```python
 kbs.wordkbs('yyyyyy')
 1
@@ -107,6 +108,7 @@ kbs.wordkbs('Hello')
 0
 ```
 
+### sentkbs(input_data)
 ```python
 kbs.sentkbs('Hello world')
 []
@@ -116,6 +118,43 @@ kbs.sentkbs('Hello world')
 kbs.sentkbs('aspdo asocjn')
 ['aspdo', 'asocjn']
 ```
+
+### freqkbs(input_data, graph=False)
+```python
+kbs.freqkbs('aaddsffgd', graph=True)
+{'a': 2, 'd': 3, 'f': 2, 'g': 1, 's': 1}
+```
+*gráfico aqui*
+### replacekbs(input_data, value=None, inplace=False, just_word=False)
+```python
+# Criação de dataframe de exemplo
+d = {'Exemplo': ["The World is beautiful", "Our project detects khhyaktvb"]}
+df_exemplo = pandas.DataFrame(data=d)
+```
+
+|  Exemplo |
+|----------|
+|  The World is beautiful |
+| Our project detects khhyaktvb |
+
+```python
+kbs.replacekbs(df_exemplo, value="Detectado", just_word=False)
+```
+
+|  Exemplo |
+|----------|
+|  The World is beautiful |
+| Detectado |
+
+```python
+kbs.replacekbs(df_exemplo, value="Detectado", just_word=True)
+```
+
+|  Exemplo |
+|----------|
+| The World is beautiful |
+| Our project detects Detectado |
+
 <br>
 
 ## 📚 Documentação

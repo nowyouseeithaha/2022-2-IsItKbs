@@ -1,10 +1,9 @@
 import pickle
 import os
-from nltk import everygrams
 import matplotlib.pyplot as plt
 import pandas as pd
 import re
-from scipy.sparse import vstack, hstack, csr_matrix
+from scipy.sparse import hstack, csr_matrix
 import numpy as np
 class isitkbs(object):
     

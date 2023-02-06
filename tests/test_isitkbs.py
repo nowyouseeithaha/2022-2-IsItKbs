@@ -1,7 +1,8 @@
 #Pytest
 import pytest
 import pandas as pd
-from ks import isitkbs
+from isitkbs import isitkbs
+
  #Testes com Randomforest
 @pytest.fixture
 def rf_object():

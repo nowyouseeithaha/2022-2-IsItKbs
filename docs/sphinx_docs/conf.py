@@ -16,7 +16,6 @@ release = '1.2'
 
 import sys, os
 
-# sys.path.append(os.path.abspath('isitkbs\\ks.py'))
 sys.path.append(os.path.abspath('..\\..'))
 
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'sphinx.ext.todo']

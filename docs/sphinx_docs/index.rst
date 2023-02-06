@@ -3,18 +3,17 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to IsItKbs's documentation!
-===================================
+Bem-vindo a página de documentação da IsItKbs!
+=======================================================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Conteúdos:
 
-   modules
+   isitkbs
 
-Indices and tables
+Índices
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`

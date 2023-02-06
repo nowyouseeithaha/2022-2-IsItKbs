@@ -1,7 +1,7 @@
-IsItkbs
+Pacote
 ===============
 
-Módulo isitkbs.ks
+Módulo ks
 -----------------
 
 .. automodule:: isitkbs.ks

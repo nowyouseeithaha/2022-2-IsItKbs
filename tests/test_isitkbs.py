@@ -127,7 +127,7 @@ def test_list_input_sent_kbs(nb_object):
     assert nb_object.sentkbs(["Hello"]) == []
 
 def test_phrases_list_sent_kbs(nb_object):
-    assert nb_object.sentkbs(["This is a normal phrase"]) == [[]]
+    assert nb_object.sentkbs(["This is a normal phrase"]) == []
 
 def test_num_list_sent_kbs(nb_object):
     assert nb_object.sentkbs([53, 'asdas', 'Hello']) == ['asdas']

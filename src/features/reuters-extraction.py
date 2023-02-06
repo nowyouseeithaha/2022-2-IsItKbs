@@ -10,7 +10,6 @@ bigrams = TfidfVectorizer(ngram_range=(2, 2),
                             strip_accents="unicode")
 
 bigram_v = bigrams.fit_transform(test_files.data)
-bigram_v
 
 with open('data/processed/reuters.pkl', 'wb') as f:
     pickle.dump(bigram_v, f)

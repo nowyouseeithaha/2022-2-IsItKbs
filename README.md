@@ -11,13 +11,12 @@
     <img src="https://img.shields.io/github/issues-pr-raw/fga-eps-mds/2022-2-IsItKbs?color=00a8f0&label=open%20PRs&style=for-the-badge"></img>
     <img src="https://img.shields.io/pypi/v/isitkbs?color=00a8f0&style=for-the-badge"></img>
     <img src="https://img.shields.io/github/license/fga-eps-mds/2022-2-IsItKbs?color=00a8f0&style=for-the-badge"></img>
-    <img src="https://img.shields.io/coverallsCoverage/github/fga-eps-mds/2022-2-IsItKbs?color=%2300a8f0&style=for-the-badge"></img>
 </div>
 
-<br>
-
-<h4 align="center"> 
-    <img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
+<h4 align="center">
+    <img src="https://img.shields.io/coverallsCoverage/github/fga-eps-mds/2022-2-IsItKbs?color=%2300FF00&&style=for-the-badge"></img>
+    <img src="https://img.shields.io/codeclimate/maintainability-percentage/fga-eps-mds/2022-2-IsItKbs?color=00FF00&style=for-the-badge"></img>
+    <img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=%2300FF00&&&style=for-the-badge"/>
 </h4>
 
 

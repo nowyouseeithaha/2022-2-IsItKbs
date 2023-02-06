@@ -12,6 +12,7 @@
     <img src="https://img.shields.io/pypi/v/isitkbs?color=00a8f0&style=for-the-badge"></img>
     <img src="https://img.shields.io/github/license/fga-eps-mds/2022-2-IsItKbs?color=00a8f0&style=for-the-badge"></img>
     <img src="https://img.shields.io/coverallsCoverage/github/fga-eps-mds/2022-2-IsItKbs?color=%2300a8f0&style=for-the-badge"></img>
+    <img src="https://img.shields.io/codeclimate/maintainability-percentage/fga-eps-mds/2022-2-IsItKbs?color=00a8f0&style=for-the-badge"></img>
 </div>
 
 <br>

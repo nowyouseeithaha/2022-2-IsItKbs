@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IsItkbs &mdash; documentação IsItKbs 1.2</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> IsItKbs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">IsItkbs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-isitkbs.ks">Módulo isitkbs.ks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#isitkbs.ks.aux"><code class="docutils literal notranslate"><span class="pre">aux</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#isitkbs.ks.aux.bigram_counter"><code class="docutils literal notranslate"><span class="pre">aux.bigram_counter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#isitkbs.ks.aux.bigram_max_occurance"><code class="docutils literal notranslate"><span class="pre">aux.bigram_max_occurance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#isitkbs.ks.aux.bigrams"><code class="docutils literal notranslate"><span class="pre">aux.bigrams()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#isitkbs.ks.aux.letter_counter"><code class="docutils literal notranslate"><span class="pre">aux.letter_counter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#isitkbs.ks.aux.ttr"><code class="docutils literal notranslate"><span class="pre">aux.ttr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#isitkbs.ks.aux.type_counter"><code class="docutils literal notranslate"><span class="pre">aux.type_counter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#isitkbs.ks.aux.type_ratio"><code class="docutils literal notranslate"><span class="pre">aux.type_ratio()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#isitkbs.ks.isitkbs"><code class="docutils literal notranslate"><span class="pre">isitkbs</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#isitkbs.ks.isitkbs.freqkbs"><code class="docutils literal notranslate"><span class="pre">isitkbs.freqkbs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#isitkbs.ks.isitkbs.replacekbs"><code class="docutils literal notranslate"><span class="pre">isitkbs.replacekbs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#isitkbs.ks.isitkbs.sentkbs"><code class="docutils literal notranslate"><span class="pre">isitkbs.sentkbs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#isitkbs.ks.isitkbs.wordkbs"><code class="docutils literal notranslate"><span class="pre">isitkbs.wordkbs()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">IsItKbs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">&lt;no title&gt;</a></li>
+      <li class="breadcrumb-item active">IsItkbs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/isitkbs.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="isitkbs">
+<h1>IsItkbs<a class="headerlink" href="#isitkbs" title="Link permanente para este cabeçalho"></a></h1>
+<section id="module-isitkbs.ks">
+<span id="modulo-isitkbs-ks"></span><h2>Módulo isitkbs.ks<a class="headerlink" href="#module-isitkbs.ks" title="Link permanente para este cabeçalho"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="isitkbs.ks.aux">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isitkbs.ks.</span></span><span class="sig-name descname"><span class="pre">aux</span></span><a class="reference internal" href="_modules/isitkbs/ks.html#aux"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#isitkbs.ks.aux" title="Link permanente para esta definição"></a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="isitkbs.ks.aux.bigram_counter">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bigram_counter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lista</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/isitkbs/ks.html#aux.bigram_counter"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#isitkbs.ks.aux.bigram_counter" title="Link permanente para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isitkbs.ks.aux.bigram_max_occurance">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bigram_max_occurance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/isitkbs/ks.html#aux.bigram_max_occurance"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#isitkbs.ks.aux.bigram_max_occurance" title="Link permanente para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isitkbs.ks.aux.bigrams">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bigrams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/isitkbs/ks.html#aux.bigrams"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#isitkbs.ks.aux.bigrams" title="Link permanente para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isitkbs.ks.aux.letter_counter">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">letter_counter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/isitkbs/ks.html#aux.letter_counter"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#isitkbs.ks.aux.letter_counter" title="Link permanente para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isitkbs.ks.aux.ttr">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ttr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/isitkbs/ks.html#aux.ttr"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#isitkbs.ks.aux.ttr" title="Link permanente para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isitkbs.ks.aux.type_counter">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type_counter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/isitkbs/ks.html#aux.type_counter"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#isitkbs.ks.aux.type_counter" title="Link permanente para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isitkbs.ks.aux.type_ratio">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/isitkbs/ks.html#aux.type_ratio"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#isitkbs.ks.aux.type_ratio" title="Link permanente para esta definição"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="isitkbs.ks.isitkbs">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isitkbs.ks.</span></span><span class="sig-name descname"><span class="pre">isitkbs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'randomforest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/isitkbs/ks.html#isitkbs"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#isitkbs.ks.isitkbs" title="Link permanente para esta definição"></a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="isitkbs.ks.isitkbs.freqkbs">
+<span class="sig-name descname"><span class="pre">freqkbs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/isitkbs/ks.html#isitkbs.freqkbs"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#isitkbs.ks.isitkbs.freqkbs" title="Link permanente para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isitkbs.ks.isitkbs.replacekbs">
+<span class="sig-name descname"><span class="pre">replacekbs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">just_word</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/isitkbs/ks.html#isitkbs.replacekbs"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#isitkbs.ks.isitkbs.replacekbs" title="Link permanente para esta definição"></a></dt>
+<dd><p>Parâmetros:
+dataframe: dataframe pandas do qual os keyboard smashing vão ser substituidos.
+value: string que vai substituir os keyboard smashings, caso seja uma string vazia as linhas que apresentarem kbs serão removidas do dataframe
+inplace: se as substituições serão feitas no próprio dataframe dos parâmetros (True) ou será retornada uma cópia do df (False)
+just_word: se False, a posição toda do dataframe é substituído por value, se True somente o kbs presente na posição é substituido
+Ex: “This isdas test” -&gt; “KBS” (just_word False)</p>
+<blockquote>
+<div><p>-&gt; “This KBS test” (just_word True)</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isitkbs.ks.isitkbs.sentkbs">
+<span class="sig-name descname"><span class="pre">sentkbs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/isitkbs/ks.html#isitkbs.sentkbs"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#isitkbs.ks.isitkbs.sentkbs" title="Link permanente para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isitkbs.ks.isitkbs.wordkbs">
+<span class="sig-name descname"><span class="pre">wordkbs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/isitkbs/ks.html#isitkbs.wordkbs"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#isitkbs.ks.isitkbs.wordkbs" title="Link permanente para esta definição"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Rodapé">
+        <a href="modules.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Douglas Alves, Sidney Fernando, Gabriel Campello, Rafael Ferreira, Arthur Grandao, Arthur de Melo, Paulo Victor.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

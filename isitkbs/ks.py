@@ -107,9 +107,8 @@ class isitkbs(object):
         dataframe: dataframe pandas do qual os keyboard smashing vão ser substituidos.
         value: string que vai substituir os keyboard smashings, caso seja uma string vazia as linhas que apresentarem kbs serão removidas do dataframe
         inplace: se as substituições serão feitas no próprio dataframe dos parâmetros (True) ou será retornada uma cópia do df (False)
-        just_word: se False, a posição toda do dataframe é substituído por value, se True somente o kbs presente na posição é substituido
-        Ex: "This isdas test" -> "KBS" (just_word False)
-                              -> "This KBS test" (just_word True)
+        just_word: se False, a posição toda do dataframe é substituído por value, se True somente o kbs presente na posição é substituido\n
+        Ex:\n"This isdas test" -> "KBS" (just_word False)\n-> "This KBS test" (just_word True) mudei essa linha
         """
         value = value or "itskbs"
         

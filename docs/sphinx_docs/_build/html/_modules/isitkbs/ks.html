@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>isitkbs.ks &mdash; documentação IsItKbs 1.2</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Buscar" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> IsItKbs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">2022-2-Squad03</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">IsItKbs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Código do módulo</a></li>
+      <li class="breadcrumb-item active">isitkbs.ks</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código fonte para isitkbs.ks</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">hstack</span><span class="p">,</span> <span class="n">csr_matrix</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="isitkbs"><a class="viewcode-back" href="../../isitkbs.html#isitkbs.ks.isitkbs">[documentos]</a><span class="k">class</span> <span class="nc">isitkbs</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;randomforest&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+    <span class="c1"># Especifica qual modelo deve ser utilizado</span>
+    <span class="c1"># Por padrão, usa-se o randomForest</span>
+
+    <span class="c1"># Função para determinar se uma palavra é keyboardsmashing</span>
+    <span class="c1"># A entrada deve ser uma palavra</span>
+<div class="viewcode-block" id="isitkbs.wordkbs"><a class="viewcode-back" href="../../isitkbs.html#isitkbs.ks.isitkbs.wordkbs">[documentos]</a>    <span class="k">def</span> <span class="nf">wordkbs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;input_data must be a string&quot;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">aux</span><span class="o">.</span><span class="n">_is_kbs_manual</span><span class="p">(</span><span class="n">string</span><span class="o">=</span><span class="n">input_data</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+        <span class="n">modelpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span> <span class="sa">f</span><span class="s1">&#39;models/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s1">.pkl&#39;</span><span class="p">)</span>
+        <span class="n">vectpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span> <span class="sa">f</span><span class="s1">&#39;models/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s1">_count_vectorizer.pkl&#39;</span><span class="p">)</span>
+        <span class="n">selpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span> <span class="s1">&#39;models/rf_selectkbest.pkl&#39;</span><span class="p">)</span>
+
+        <span class="n">trained_model</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">modelpath</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+        <span class="n">vectorizer</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">vectpath</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+        <span class="n">selector</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">selpath</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">input_ngram_features</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="n">input_data</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="s1">&#39;randomforest&#39;</span><span class="p">:</span>
+            <span class="n">input_ngram_features</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">input_ngram_features</span><span class="p">)</span>
+        <span class="c1"># Extract lexical features for the new string</span>
+        <span class="n">input_vowel_feature</span> <span class="o">=</span> <span class="n">csr_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">aux</span><span class="o">.</span><span class="n">type_ratio</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">input_consonant_feature</span> <span class="o">=</span> <span class="n">csr_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">aux</span><span class="o">.</span><span class="n">type_ratio</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">input_ttr_feature</span> <span class="o">=</span> <span class="n">csr_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">aux</span><span class="o">.</span><span class="n">ttr</span><span class="p">(</span><span class="n">input_data</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="c1"># Combine the N-gram and lexical features into a single feature matrix</span>
+        <span class="n">input_lexical_features</span> <span class="o">=</span> <span class="n">hstack</span><span class="p">((</span><span class="n">input_vowel_feature</span><span class="p">,</span> <span class="n">input_consonant_feature</span><span class="p">,</span> <span class="n">input_ttr_feature</span><span class="p">))</span>
+        <span class="n">input_features</span> <span class="o">=</span> <span class="n">hstack</span><span class="p">((</span><span class="n">input_lexical_features</span><span class="p">,</span> <span class="n">input_ngram_features</span><span class="p">))</span>
+
+        <span class="c1"># Make the prediction using the trained model</span>
+        <span class="n">pred</span> <span class="o">=</span> <span class="n">trained_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">input_features</span><span class="p">)</span>
+        <span class="n">predprob</span> <span class="o">=</span> <span class="n">trained_model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">input_features</span><span class="p">)</span>
+        <span class="c1">#print(f&quot;{pred}:{predprob}&quot;)</span>
+        <span class="k">return</span> <span class="n">pred</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+    <span class="c1"># Função para determinar quais são os keyboard smashing em uma frase</span>
+    <span class="c1"># A entrada deve ser uma string ou uma lista de palavras</span>
+<div class="viewcode-block" id="isitkbs.sentkbs"><a class="viewcode-back" href="../../isitkbs.html#isitkbs.ks.isitkbs.sentkbs">[documentos]</a>    <span class="k">def</span> <span class="nf">sentkbs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">):</span>
+        <span class="n">mashs</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">words</span> <span class="o">=</span> <span class="n">input_data</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">words</span> <span class="o">=</span> <span class="n">input_data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mashs</span>
+
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">word</span><span class="p">:</span>
+                    <span class="n">mashs_partial</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sentkbs</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+                    <span class="n">mashs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">mashs_partial</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wordkbs</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">res</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">mashs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">mashs</span></div>
+
+    <span class="c1"># Função que mostra a frequência de caracteres em keyboard smashing</span>
+    <span class="c1"># A entrada deve ser uma string ou uma lista de string</span>
+<div class="viewcode-block" id="isitkbs.freqkbs"><a class="viewcode-back" href="../../isitkbs.html#isitkbs.ks.isitkbs.freqkbs">[documentos]</a>    <span class="k">def</span> <span class="nf">freqkbs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">char_counts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">cleaned_data</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sentkbs</span><span class="p">(</span><span class="n">input_data</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">cleaned_data</span><span class="p">:</span>
+            <span class="n">cleaned_data</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^\w\s]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">cleaned_data</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">cleaned_data</span><span class="p">):</span>
+                <span class="n">char_counts</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="o">=</span> <span class="n">cleaned_data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
+            <span class="n">char_counts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">char_counts</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+            <span class="n">char_counts</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">graph</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__freqgraph</span><span class="p">(</span><span class="n">char_counts</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">char_counts</span></div>
+
+    <span class="k">def</span> <span class="nf">__freqgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cont_char</span><span class="p">):</span>
+        <span class="c1"># Determina eixo x e eixo y</span>
+        <span class="n">x_axis</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">cont_char</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">y_axis</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">cont_char</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+        <span class="c1"># Nomeia os eixos</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Caracteres&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Freq&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Plota o gráfico</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span><span class="p">)</span>
+
+<div class="viewcode-block" id="isitkbs.replacekbs"><a class="viewcode-back" href="../../isitkbs.html#isitkbs.ks.isitkbs.replacekbs">[documentos]</a>    <span class="k">def</span> <span class="nf">replacekbs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">just_word</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Parâmetros:</span>
+<span class="sd">        dataframe: dataframe pandas do qual os keyboard smashing vão ser substituidos.</span>
+<span class="sd">        value: string que vai substituir os keyboard smashings, caso seja uma string vazia as linhas que apresentarem kbs serão removidas do dataframe</span>
+<span class="sd">        inplace: se as substituições serão feitas no próprio dataframe dos parâmetros (True) ou será retornada uma cópia do df (False)</span>
+<span class="sd">        just_word: se False, a posição toda do dataframe é substituído por value, se True somente o kbs presente na posição é substituido</span>
+<span class="sd">        Ex: &quot;This isdas test&quot; -&gt; &quot;KBS&quot; (just_word False)</span>
+<span class="sd">                              -&gt; &quot;This KBS test&quot; (just_word True)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">value</span> <span class="ow">or</span> <span class="s2">&quot;itskbs&quot;</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Se o tipo de entrada for um dataframe pandas, a função __dataframe é chamada para fazer o tratamento</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">input_data</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">if</span> <span class="n">inplace</span> <span class="k">else</span> <span class="n">input_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">just_word</span><span class="p">)</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Se o tipo de entrada for uma lista ou uma string de palavras, a função __listOrString é chamada</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__listOrString</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">just_word</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">just_word</span><span class="p">):</span>
+        <span class="n">wordskbs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">nRow</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">nCol</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">mashsIndex</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nRow</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nCol</span><span class="p">):</span>
+                <span class="n">wordskbs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sentkbs</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">])</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wordskbs</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">just_word</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
+                        <span class="k">if</span><span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;itskbs&#39;</span><span class="p">):</span>
+                            <span class="n">mashsIndex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">replacekbs</span><span class="p">(</span>
+                            <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">],</span> <span class="n">value</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">mashsIndex</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span>
+
+    <span class="k">def</span> <span class="nf">__listOrString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;itskbs&#39;</span><span class="p">,</span> <span class="n">just_word</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">is_list</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="n">input_data</span> <span class="o">=</span> <span class="n">input_data</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="n">is_list</span> <span class="o">=</span> <span class="kc">False</span>
+        
+        <span class="n">wordskbs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sentkbs</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span>
+        <span class="n">output_data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">input_data</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">sent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__listOrString</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">just_word</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">just_word</span><span class="p">:</span>
+                    <span class="n">output_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sent</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">sent</span> <span class="o">!=</span> <span class="n">i</span><span class="p">:</span>
+                    <span class="n">output_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                    <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;itskbs&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">wordskbs</span><span class="p">:</span>
+                    <span class="n">output_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">output_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">wordskbs</span> <span class="k">else</span> <span class="n">i</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_data</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">is_list</span> <span class="k">else</span> <span class="n">output_data</span></div>
+    
+
+
+<div class="viewcode-block" id="aux"><a class="viewcode-back" href="../../isitkbs.html#isitkbs.ks.aux">[documentos]</a><span class="k">class</span> <span class="nc">aux</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="c1"># Funções auxiliares</span>
+<div class="viewcode-block" id="aux.letter_counter"><a class="viewcode-back" href="../../isitkbs.html#isitkbs.ks.aux.letter_counter">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">letter_counter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;c&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">{</span><span class="n">letter</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span> <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="s1">&#39;bcdfghjklmnpqrstvwxyz&#39;</span><span class="p">}</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;v&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">{</span><span class="n">letter</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span> <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="s1">&#39;aeiou&#39;</span><span class="p">}</span>  
+        <span class="k">return</span> <span class="p">{</span><span class="n">letter</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span> <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="s1">&#39;abcdefghijklmnopqrstuvwxyz&#39;</span><span class="p">}</span></div>
+
+<div class="viewcode-block" id="aux.type_counter"><a class="viewcode-back" href="../../isitkbs.html#isitkbs.ks.aux.type_counter">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">type_counter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>    
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">letter_counter</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span></div>
+    
+<div class="viewcode-block" id="aux.type_ratio"><a class="viewcode-back" href="../../isitkbs.html#isitkbs.ks.aux.type_ratio">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">type_ratio</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">type_counter</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="aux.bigram_counter"><a class="viewcode-back" href="../../isitkbs.html#isitkbs.ks.aux.bigram_counter">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">bigram_counter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">lista</span><span class="p">):</span>
+        <span class="n">dic</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">lista</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dic</span><span class="p">:</span>
+                <span class="n">dic</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span><span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dic</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span><span class="mi">1</span>
+        <span class="k">return</span> <span class="n">dic</span></div>
+
+<div class="viewcode-block" id="aux.bigrams"><a class="viewcode-back" href="../../isitkbs.html#isitkbs.ks.aux.bigrams">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">bigrams</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="n">bigrams</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">bigrams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">bigram_counter</span><span class="p">(</span><span class="n">bigrams</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="aux.bigram_max_occurance"><a class="viewcode-back" href="../../isitkbs.html#isitkbs.ks.aux.bigram_max_occurance">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">bigram_max_occurance</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">bigrams</span><span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span></div>
+        
+<div class="viewcode-block" id="aux.ttr"><a class="viewcode-back" href="../../isitkbs.html#isitkbs.ks.aux.ttr">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">ttr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="n">ttr</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">string</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ttr</span></div>
+
+
+    <span class="k">def</span> <span class="nf">__bigramas_proibidos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="n">proibidos</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;zx&#39;</span><span class="p">,</span> <span class="s1">&#39;xj&#39;</span><span class="p">,</span> <span class="s1">&#39;wx&#39;</span><span class="p">,</span> <span class="s1">&#39;vx&#39;</span><span class="p">,</span> <span class="s1">&#39;vq&#39;</span><span class="p">,</span> <span class="s1">&#39;vj&#39;</span><span class="p">,</span> <span class="s1">&#39;vf&#39;</span><span class="p">,</span> <span class="s1">&#39;sx&#39;</span><span class="p">,</span> <span class="s1">&#39;qz&#39;</span><span class="p">,</span> <span class="s1">&#39;qx&#39;</span><span class="p">,</span> <span class="s1">&#39;qk&#39;</span><span class="p">,</span> <span class="s1">&#39;qj&#39;</span><span class="p">,</span> <span class="s1">&#39;qc&#39;</span><span class="p">,</span> <span class="s1">&#39;jz&#39;</span><span class="p">,</span> <span class="s1">&#39;jx&#39;</span><span class="p">,</span> <span class="s1">&#39;jq&#39;</span><span class="p">,</span> <span class="s1">&#39;jf&#39;</span><span class="p">,</span> <span class="s1">&#39;hx&#39;</span><span class="p">,</span> <span class="s1">&#39;gx&#39;</span><span class="p">,</span> <span class="s1">&#39;fq&#39;</span><span class="p">,</span> <span class="s1">&#39;bx&#39;</span><span class="p">,</span> 
+                     <span class="s1">&#39;cv&#39;</span><span class="p">,</span> <span class="s1">&#39;cx&#39;</span><span class="p">,</span> <span class="s1">&#39;dx&#39;</span><span class="p">,</span> <span class="s1">&#39;fv&#39;</span><span class="p">,</span> <span class="s1">&#39;fx&#39;</span><span class="p">,</span> <span class="s1">&#39;fz&#39;</span><span class="p">,</span> <span class="s1">&#39;gv&#39;</span><span class="p">,</span> <span class="s1">&#39;jg&#39;</span><span class="p">,</span> <span class="s1">&#39;jk&#39;</span><span class="p">,</span> <span class="s1">&#39;jl&#39;</span><span class="p">,</span> <span class="s1">&#39;jm&#39;</span><span class="p">,</span> <span class="s1">&#39;jt&#39;</span><span class="p">,</span> <span class="s1">&#39;jv&#39;</span><span class="p">,</span> <span class="s1">&#39;jw&#39;</span><span class="p">,</span> <span class="s1">&#39;kq&#39;</span><span class="p">,</span> <span class="s1">&#39;kx&#39;</span><span class="p">,</span> <span class="s1">&#39;kz&#39;</span><span class="p">,</span> <span class="s1">&#39;pq&#39;</span><span class="p">,</span> <span class="s1">&#39;px&#39;</span><span class="p">,</span> <span class="s1">&#39;qd&#39;</span><span class="p">,</span> <span class="s1">&#39;qe&#39;</span><span class="p">,</span> 
+                     <span class="s1">&#39;qf&#39;</span><span class="p">,</span> <span class="s1">&#39;qg&#39;</span><span class="p">,</span> <span class="s1">&#39;qh&#39;</span><span class="p">,</span> <span class="s1">&#39;ql&#39;</span><span class="p">,</span> <span class="s1">&#39;qm&#39;</span><span class="p">,</span> <span class="s1">&#39;qn&#39;</span><span class="p">,</span> <span class="s1">&#39;qo&#39;</span><span class="p">,</span> <span class="s1">&#39;qp&#39;</span><span class="p">,</span> <span class="s1">&#39;qr&#39;</span><span class="p">,</span> <span class="s1">&#39;qs&#39;</span><span class="p">,</span> <span class="s1">&#39;qv&#39;</span><span class="p">,</span> <span class="s1">&#39;qw&#39;</span><span class="p">,</span> <span class="s1">&#39;qy&#39;</span><span class="p">,</span> <span class="s1">&#39;vb&#39;</span><span class="p">,</span> <span class="s1">&#39;vm&#39;</span><span class="p">,</span> <span class="s1">&#39;vp&#39;</span><span class="p">,</span> <span class="s1">&#39;vw&#39;</span><span class="p">,</span> <span class="s1">&#39;vz&#39;</span><span class="p">,</span> <span class="s1">&#39;xz&#39;</span><span class="p">,</span> <span class="s1">&#39;zj&#39;</span><span class="p">]</span>
+
+        <span class="n">bigramas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bigrams</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">bigrama</span> <span class="ow">in</span> <span class="n">bigramas</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">bigrama</span> <span class="ow">in</span> <span class="n">proibidos</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="mi">0</span>   
+    
+    <span class="k">def</span> <span class="nf">__repeticao_de_bigramas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="nb">len</span><span class="p">):</span>
+        <span class="n">max_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bigram_max_occurance</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">max_o</span> <span class="o">==</span> <span class="mi">4</span> <span class="ow">and</span> <span class="nb">len</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">)</span> <span class="ow">or</span> <span class="n">max_o</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span> 
+        <span class="k">return</span> <span class="kc">False</span>
+
+    
+    <span class="c1"># Resultado</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_is_kbs_manual</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>    
+            <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__repeticao_de_bigramas</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span> <span class="k">return</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__bigramas_proibidos</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span> <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Douglas Alves, Sidney Fernando, Gabriel Campello, Rafael Ferreira, Arthur Grandao, Arthur de Melo, Paulo Victor.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

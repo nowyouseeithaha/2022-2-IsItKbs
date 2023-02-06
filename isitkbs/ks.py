@@ -5,6 +5,8 @@ import pandas as pd
 import re
 from scipy.sparse import hstack, csr_matrix
 import numpy as np
+import warnings
+warnings.filterwarnings("ignore")
 class isitkbs(object):
     
     def __init__(self, model='randomforest'):

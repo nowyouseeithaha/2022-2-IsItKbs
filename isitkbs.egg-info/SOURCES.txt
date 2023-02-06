@@ -11,5 +11,9 @@ isitkbs.egg-info/dependency_links.txt
 isitkbs.egg-info/requires.txt
 isitkbs.egg-info/top_level.txt
 models/__init__.py
+models/naivebayes.pkl
+models/naivebayes_count_vectorizer.pkl
 models/randomforest.pkl
+models/randomforest_count_vectorizer.pkl
+models/rf_selectkbest.pkl
 models/tfid_vectorizer.pkl

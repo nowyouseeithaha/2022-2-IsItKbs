@@ -158,10 +158,15 @@ img {
 
 code {
      background-color: rgb(223, 223, 223);
-     padding: 8px;
+     padding: 8px 13px 8px 13px;
      border-radius: 5px;
      display: inline-block;
      width: 100%;
+     font-size: 15px;
+}
+
+.codes button{
+     background-color: #000;
 }
 
  :focus {

@@ -1,14 +1,17 @@
 import pandas as pd
 import string
 
+def removevazio(lista):
+    for i in range(len(lista)):
+     lista[i] = lista[i].strip()
+
 with open(".\\data\\raw\\mashing.txt", "r", encoding="utf-8") as g:
     mashings = g.read()
 
 mashings = mashings.split("\n")
 
 #Remoção dos espaços vazios
-for i in range(len(mashings)):
-    mashings[i] = mashings[i].strip()
+removevazio(mashings)
 
 with open(".\\data\\raw\\large-2014.txt", "r", encoding="utf-8") as k:
     naturals = k.read()
@@ -16,8 +19,7 @@ with open(".\\data\\raw\\large-2014.txt", "r", encoding="utf-8") as k:
 naturals = naturals.split(" ")
 
 #Remoção dos espaços vazios
-for i in range(len(naturals)):
-    naturals[i] = naturals[i].strip()
+removevazio(naturals)
 
 #Função para remoção de valores númericos e de pontuação das palavras "comuns" da base de dados      
 naturals = list(filter(lambda token: token not in string.punctuation and token.isalpha(), naturals))

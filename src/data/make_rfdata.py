@@ -1,4 +1,4 @@
-from auxiliary import type_ratio, ttr, open_csv_df, apply_lexicals_ftr, df_concat_reset
+from auxiliary import open_csv_df, apply_lexicals_ftr, df_concat_reset
 from sklearn.utils import shuffle
 import pandas as pd
 

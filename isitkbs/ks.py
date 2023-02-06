@@ -21,14 +21,9 @@ class isitkbs(object):
         if aux._is_kbs_manual(string=input_data):
             return 1
 
-        
-        
-        modelpath = os.path.join(caminho, f'{self.model}.pkl')
-        vectpath = os.path.join(caminho, f'{self.model}_count_vectorizer.pkl')
-        selpath = os.path.join(caminho, 'rf_selectkbest.pkl')
-        #modelpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), f'models/{self.model}.pkl')
-        #vectpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), f'models/{self.model}_count_vectorizer.pkl')
-        #selpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'models/rf_selectkbest.pkl')
+        modelpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), f'models/{self.model}.pkl')
+        vectpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), f'models/{self.model}_count_vectorizer.pkl')
+        selpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'models/rf_selectkbest.pkl')
 
         trained_model = pickle.load(open(modelpath, 'rb'))
         vectorizer = pickle.load(open(vectpath, 'rb'))

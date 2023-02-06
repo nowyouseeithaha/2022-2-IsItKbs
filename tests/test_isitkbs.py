@@ -1,8 +1,7 @@
 #Pytest
 import pytest
+import pandas as pd
 from ks import isitkbs
-
-
  #Testes com Randomforest
 @pytest.fixture
 def rf_object():
@@ -58,8 +57,6 @@ def test_word_nonmashing_randomforest(rf_object,nonmashings, result2):
 
 def test_phrases_randomforest(rf_object, phrases, result3):
     assert rf_object.sentkbs(input_data = phrases) == result3
-
-
 
  #Testes com NaiveBayes
 @pytest.fixture
@@ -142,3 +139,18 @@ def test_freqkbs_graph(nb_object):
 
 def test_replacekbs_string(nb_object):
     assert nb_object.replacekbs(input_data = "This is a sdksj") == "This is a"
+
+def test_replacekbs_null_dataframe(nb_object):
+    df = pd.DataFrame(["This", "is", "a", "sdasdafg", "dataframe"])
+    assert nb_object.replacekbs(input_data = df).to_dict() == {0: {0: 'This', 1: 'is', 2: 'a', 3: 'dataframe'}}
+
+def test_replacekbs_str_dataframe_justword(nb_object):
+    df = pd.DataFrame(["This", "is", "a", "normal sdasdafg", "dataframe"])
+    assert nb_object.replacekbs(input_data = df, value = "REMOVIDO", just_word = True).to_dict() == {0: {0: 'This', 1: 'is', 2: 'a', 3: 'normal REMOVIDO', 4: 'dataframe'}}
+
+def test_replacekbs_str_dataframe(nb_object):
+    df = pd.DataFrame(["This", "is", "a", "normal sdasdafg", "dataframe"])
+    assert nb_object.replacekbs(input_data = df, value = "REMOVIDO").to_dict() == {0: {0: 'This', 1: 'is', 2: 'a', 3: 'REMOVIDO', 4: 'dataframe'}}
+
+def test_replacekbs_string(nb_object):
+    assert nb_object.replacekbs(input_data = ["This is a sdksj"], just_word=True) == ["This is a"]

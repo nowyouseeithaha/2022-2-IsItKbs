@@ -51,7 +51,7 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="#instalacao">Instalação <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="#instalacao">Guia Rápido <span class="sr-only">(current)</span></a>
                 </li>
                 <!-- Projeto -->
                 <li class="nav-item dropdown">
@@ -82,6 +82,9 @@
                 <!-- Código de conduta -->
                 <li class="nav-item">
                   <a class="nav-link" href="projeto/conduct_code.html">Código de Conduta <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/docs/sphinx_docs/_build/html/index.html" target="_blank">Documentação<span class="sr-only">(current)</span></a>
                 </li>
               </ul>
             </div>
@@ -153,34 +156,81 @@
                   </div>
                </div>
             </div>
-            <div>
+            <div class="codes">
                <p>O pacote pode ser encontrado no <a href="https://pypi.org/project/isitkbs/">Pypi</a>, repositório de software oficial de terceiros para Python.</p>
                <p>Para instalar a última versão do <span>isitkbs</span>, instale a última versão 64bits do <a href="https://www.python.org">Python</a>. <br>
                Então rode: <br>
-               <code>pip install isitkbs</code> <br>
+               <code id="content1">pip install isitkbs</code> <br>
+               
                Para checar sua instalação, você pode rodar: <br>
-               <code>python -m pip show isitkbs  # para ver qual versão está instalada</code> <br>
+               <code>python -m pip show isitkbs  <span style="color: green;">#para ver qual versão está instalada</span></code> <br>
                <br>
                <span style="font-size: 25px;">Exemplos</span><br><br>
-               <span style="font-size: 17px">is_kbs(input_data, analyzer, model)</span><br>
+               <span style="font-size: 17px">isitkbs(model)</span><br>
                <code> from isitkbs import * <br>
-                  is_kbs(input_data, analyzer, model)</code>
+                  <span style="color: green">#instancia objeto</span> <br>
+                  kbs = isitkbs(model)</code>
                <u>
-                  <li>input_data: dados de entrada representados por uma string </li>
-                  <li>analyzer='word': análise de uma palavra (retorna positivo(1) ou negativo (0) se é keyboard smashing)</li>
-                  <li>analyzer='phrases': retorna quais palavras são keyboard smashing de uma frase de entrada</li>
-                  <li>model: modelo utilizado ('randomForest' por padrão)</li>
+                  <li>model: modelo utilizado ('randomForest' por padrão, mas há também naivebyes)</li>
                </u> <br>
                <h4 style="margin-left: 20px;">Tente:</h4>
-               <code style="margin: 0px 0 10px 20px;">is_kbs('yyyyyy') <br>
+               <code style="margin: 0px 0 10px 20px;">print(kbs.wordkbs('yyyyyy')) <br>
                <span>return 1</span></code>
-               <code style="margin: 0px 0 10px 20px;">is_kbs('Hello') <br>
+               <code style="margin: 0px 0 10px 20px;">print(kbs.wordkbs('Hello')) <br>
                <span>return 0</span></code>
-               <code style="margin: 0px 0 10px 20px;">is_kbs('Hello world', analyzer='phrases') <br>
+               <code style="margin: 0px 0 10px 20px;">print(kbs.sentkbs('Hello world')) <br>
                <span>return 0</span></code>
-               <code style="margin: 0px 0 10px 20px;">is_kbs('aspdo asocjn', analyzer='phrases') <br>
-               <span>return [['aspdo'], ['asocjn']]</span></code>
+               <code style="margin: 0px 0 10px 20px;">print(kbs.sentkbs('aspdo asocjn')) <br>
+               <span>return ['aspdo', 'asocjn']</span></code> <br>
+               <code style="margin: 0px 0 10px 20px;">
+                  <span style="color: green">#Criação de dataframe de exemplo</span> <br>
+                  d = {'Exemplo': ["The World is beautiful", "Our project detects khhyaktvb"]}
+                  df_exemplo = pandas.DataFrame(data=d) <br> <br>
 
+                  <table border="1" style="text-align: center;">
+                     <tr>
+                        <td style="font-weight: bold;">Exemplo</td>
+                     </tr>
+                     <tr>
+                        <td>The World is beautiful</td>
+                     </tr>
+                     <tr>
+                        <td>Our project detects khhyaktvb</td>
+                     </tr>
+                  </table>
+                  
+               </code>
+               <code style="margin: 0px 0 10px 20px;">
+                  print(kbs.replacekbs(df_exemplo, value="Detectado", just_word=False))
+                  <br><br>
+                  <table border="1" style="text-align: center;">
+                     <tr>
+                        <td style="font-weight: bold;">Exemplo</td>
+                     </tr>
+                     <tr>
+                        <td>The World is beautiful</td>
+                     </tr>
+                     <tr>
+                        <td>Detectado</td>
+                     </tr>
+                  </table>
+               </code>
+               <code style="margin: 0px 0 10px 20px;">
+                  print(kbs.replacekbs(df_exemplo, value="Detectado", just_word=True))
+                  <table border="1" style="text-align: center;">
+                     <tr>
+                        <td style="font-weight: bold;">Exemplo</td>
+                     </tr>
+                     <tr>
+                        <td>The World is beautiful</td>
+                     </tr>
+                     <tr>
+                        <td>Our project detects Detectado</td>
+                     </tr>
+                  </table>
+               </code>
+               <a href="" style="margin: 0px 0 10px 20px;font-size:20px;">Mais exemplos</a>
+               
                   
                </p>
             </div>

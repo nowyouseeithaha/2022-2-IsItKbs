@@ -35,4 +35,19 @@ function closeNav(parent) {
     }, 2500)
  }
 
+ function copyToClipboard(element) {
+  var text = document.getElementById(element);
+  var range = document.createRange();
+  range.selectNode(text);
+  window.getSelection().removeAllRanges();
+  window.getSelection().addRange(range);
+  document.execCommand("copy");
+  window.getSelection().removeAllRanges();
+  var button = document.getElementById("copyButton");
+  button.innerHTML = "Copiado";
+  setTimeout(function() {
+    button.innerHTML = "Copiar";
+  }, 1000);
+}
+
  window.onload(makeid())

@@ -1,10 +1,12 @@
 Metadata-Version: 2.1
 Name: isitkbs
-Version: 1.2.2
+Version: 1.2.3
 Summary: Detect keyboard smashing
+Home-page: UNKNOWN
 Author: Arthur de Melo, Arthur Grandão, Douglas Alves, Gabriel Campello, Paulo Victor, Rafael Ferreira, Sidney Fernando
 License: MIT License
 Keywords: keyboard-smashing
+Platform: UNKNOWN
 Description-Content-Type: text/markdown
 License-File: LICENSE
 
@@ -85,6 +87,8 @@ Is Not keyboard smashing.
 [Rafael Ferreira](https://github.com/RafaelCLG0)
 
 [Sidney Fernando](https://github.com/nando3d3)
+
+
 
 
 

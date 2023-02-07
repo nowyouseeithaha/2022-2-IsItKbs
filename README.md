@@ -33,7 +33,7 @@
   - [📋 Exemplos](#-exemplos)
   - [📚 Documentação](#-documentação)
   - [📁 Diretórios](#-diretórios)
-  - [👨‍🔧 Quer contribuir?](#-quer-contribuir?)
+  - [👨‍🔧 Quer contribuir?](#-quer-contribuir)
   - [👨‍💻 Contribuidores](#-contribuidores)
   - [©Licença](#licença)
 
@@ -89,8 +89,6 @@ isitkbs(model='randomforest')
 ```
 Instancia o objeto com o modelo desejado.
 
-<br>
-
 ### ***wordkbs***
 
 ```python
@@ -98,15 +96,11 @@ wordkbs(input_data)
 ```
 Analisa uma palavra e a classifica como keyboard smashing ou normal.
 
-<br>
-
 ### ***sentkbs***
 ```python
 sentkbs(input_data)
 ```
 Retorna uma lista dos keyboard smashings encontrados em uma frase.
-
-<br>
 
 ### ***freqkbs***
 ```python
@@ -114,20 +108,15 @@ freqkbs(input_data, graph=False)
 ```
 Retorna a composição de letras da palavra e pode plotar um gráfico.
 
-<br>
-
 ### ***replacekbs***
 ```python
 replacekbs(input_data, value=None, inplace=False, just_word=False)
 ```
 Substitui os keyboard smashing encontrados em um dataframe/lista/string, por um valor especificado pelo usuário.
 
-<br>
-
 *Caso você queira ver detalhes sobre as funções, aqui está o [link para nossa documentação](https://github.com/fga-eps-mds/2022-2-IsItKbs/blob/main/isitkbs.md).*
 
 <br>
-
 
 ## 📋 Exemplos
 
@@ -138,8 +127,6 @@ kbs = isitkbs() # Random Forest
 kbs = isitkbs(model='randomforest') # Random Forest
 kbs = isitkbs(model='naivebayes') # Naive Bayes
 ```
-
-<br>
 
 ### ***wordkbs***
 ```python
@@ -152,8 +139,6 @@ kbs.wordkbs('Hello')
 0
 ```
 
-<br>
-
 ### ***sentkbs***
 ```python
 kbs.sentkbs('Hello world')
@@ -164,8 +149,6 @@ kbs.sentkbs('Hello world')
 kbs.sentkbs('aspdo asocjn')
 ['aspdo', 'asocjn']
 ```
-
-<br>
 
 ### ***freqkbs***
 ```python
@@ -179,8 +162,6 @@ kbs.freqkbs('aaddsffgd', graph=True)
 ```
 
 <img src="https://raw.githubusercontent.com/fga-eps-mds/2022-2-Squad03/main/docs/images/freqkbs_example.png" height=200 width=300></img>
-
-<br>
 
 ### ***replacekbs***
 ```python

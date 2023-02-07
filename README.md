@@ -14,13 +14,13 @@
 </div>
 
 <h4 align="center">
-    <img src="https://img.shields.io/coverallsCoverage/github/fga-eps-mds/2022-2-IsItKbs?color=%2300FF00&&style=for-the-badge"></img>
-    <img src="https://img.shields.io/codeclimate/maintainability-percentage/fga-eps-mds/2022-2-IsItKbs?color=00FF00&style=for-the-badge"></img>
-    <img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=%2300FF00&&&style=for-the-badge"/>
+    <img src="https://img.shields.io/coverallsCoverage/github/fga-eps-mds/2022-2-IsItKbs?color=%2340BE25&&style=for-the-badge"></img>
+    <img src="https://img.shields.io/codeclimate/maintainability-percentage/fga-eps-mds/2022-2-IsItKbs?color=40BE25&style=for-the-badge"></img>
 </h4>
 
+<br>
 
-[Read this in english.](https://github.com/fga-eps-mds/2022-2-IsItKbs/blob/main/README.EN.md)
+[*Read this in english.*](https://github.com/fga-eps-mds/2022-2-IsItKbs/blob/main/README.EN.md)
 
 ## 📑 Sumário
 
@@ -30,10 +30,10 @@
   - [🛠 Tecnologias utilizadas](#-tecnologias-utilizadas)
   - [📝 Guia de instalação](#-guia-de-instalação)
   - [⚙ Funcionalidades](#-funcionalidades)
-    - [is\_kbs(input\_data, analyzer, model)](#is_kbsinput_data-analyzer-model)
   - [📋 Exemplos](#-exemplos)
   - [📚 Documentação](#-documentação)
   - [📁 Diretórios](#-diretórios)
+  - [👨‍🔧 Quer contribuir?](#-quer-contribuir?)
   - [👨‍💻 Contribuidores](#-contribuidores)
   - [©Licença](#licença)
 
@@ -70,33 +70,78 @@ Ex.:
 
 ## 📝 Guia de instalação
 
-<li>Necessário python 3 e pip.</li>
-<li>Faça a instalação do nosso pacote com o pip no seu terminal python (as demais bibliotecas necessárias são instaladas  automáticamente com o comando abaixo):</li>
+<li>Necessário ter Python3 e pip.</li>
+<li>Faça a instalação do nosso pacote com o pip no seu terminal python:</li>
 
 ```
 pip install isitkbs
 ```
+(as demais bibliotecas necessárias são instaladas automáticamente com o comando acima)
 
 <br>
 
 ## ⚙ Funcionalidades
 
-### is_kbs(model)
+### ***isitkbs***
+```python
+# Instanciação da classe
+isitkbs(model='randomforest')
+```
+Instancia o objeto com o modelo desejado.
+
+<br>
+
+### ***wordkbs***
 
 ```python
-from isitkbs import *
-kbs = is_kbs()
+wordkbs(input_data)
 ```
-- model: modelo utilizado ('randomForest' por padrão, há também naivebayes)
+Analisa uma palavra e a classifica como keyboard smashing ou normal.
 
 <br>
 
-Para novas versões, a ideia é desenvolver features que auxiliam no tratamento de keyboard smashing em textos, banco de dados, entre outros.
+### ***sentkbs***
+```python
+sentkbs(input_data)
+```
+Retorna uma lista dos keyboard smashings encontrados em uma frase.
 
 <br>
+
+### ***freqkbs***
+```python
+freqkbs(input_data, graph=False)
+```
+Retorna a composição de letras da palavra e pode plotar um gráfico.
+
+<br>
+
+### ***replacekbs***
+```python
+replacekbs(input_data, value=None, inplace=False, just_word=False)
+```
+Substitui os keyboard smashing encontrados em um dataframe/lista/string, por um valor especificado pelo usuário.
+
+<br>
+
+*Caso você queira ver detalhes sobre as funções, aqui está o [link para nossa documentação](https://github.com/fga-eps-mds/2022-2-IsItKbs/blob/main/isitkbs.md).*
+
+<br>
+
 
 ## 📋 Exemplos
 
+### ***isitkbs***
+```python
+# Instanciação da classe
+kbs = isitkbs() # Random Forest
+kbs = isitkbs(model='randomforest') # Random Forest
+kbs = isitkbs(model='naivebayes') # Naive Bayes
+```
+
+<br>
+
+### ***wordkbs***
 ```python
 kbs.wordkbs('yyyyyy')
 1
@@ -107,6 +152,9 @@ kbs.wordkbs('Hello')
 0
 ```
 
+<br>
+
+### ***sentkbs***
 ```python
 kbs.sentkbs('Hello world')
 []
@@ -116,6 +164,54 @@ kbs.sentkbs('Hello world')
 kbs.sentkbs('aspdo asocjn')
 ['aspdo', 'asocjn']
 ```
+
+<br>
+
+### ***freqkbs***
+```python
+kbs.freqkbs('aaddsffgd', graph=False)
+{'a': 2, 'd': 3, 'f': 2, 'g': 1, 's': 1}
+```
+
+```python
+kbs.freqkbs('aaddsffgd', graph=True)
+{'a': 2, 'd': 3, 'f': 2, 'g': 1, 's': 1}
+```
+
+<img src="https://raw.githubusercontent.com/fga-eps-mds/2022-2-Squad03/main/docs/images/freqkbs_example.png" height=200 width=300></img>
+
+<br>
+
+### ***replacekbs***
+```python
+# Criação de dataframe de exemplo
+d = {'Exemplo': ["The World is beautiful", "Our project detects khhyaktvb"]}
+df_exemplo = pandas.DataFrame(data=d)
+```
+
+|  Exemplo |
+|----------|
+|  The World is beautiful |
+| Our project detects khhyaktvb |
+
+```python
+kbs.replacekbs(input_data=df_exemplo, value="Detectado", just_word=False)
+```
+
+|  Exemplo |
+|----------|
+|  The World is beautiful |
+| Detectado |
+
+```python
+kbs.replacekbs(input_data=df_exemplo, value="Detectado", just_word=True)
+```
+
+|  Exemplo |
+|----------|
+| The World is beautiful |
+| Our project detects Detectado |
+
 <br>
 
 ## 📚 Documentação
@@ -142,6 +238,10 @@ kbs.sentkbs('aspdo asocjn')
 <p>/src <- Scripts para tratamento de dados, feature engineering e treinamento de algoritmos.<p>
 
 <br>
+
+## 👨‍🔧 Quer contribuir?
+
+Para saber sobre como contribuir para o nosso projeto, clique neste [link.](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/contribution_guide.html)
 
 ## 👨‍💻 Contribuidores
 

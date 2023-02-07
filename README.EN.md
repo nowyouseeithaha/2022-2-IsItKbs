@@ -11,32 +11,31 @@
     <img src="https://img.shields.io/github/issues-pr-raw/fga-eps-mds/2022-2-IsItKbs?color=00a8f0&label=open%20PRs&style=for-the-badge"></img>
     <img src="https://img.shields.io/pypi/v/isitkbs?color=00a8f0&style=for-the-badge"></img>
     <img src="https://img.shields.io/github/license/fga-eps-mds/2022-2-IsItKbs?color=00a8f0&style=for-the-badge"></img>
-    <img src="https://img.shields.io/coverallsCoverage/github/fga-eps-mds/2022-2-IsItKbs?color=%2300a8f0&style=for-the-badge"></img>
-
 </div>
+
+<h4 align="center">
+    <img src="https://img.shields.io/coverallsCoverage/github/fga-eps-mds/2022-2-IsItKbs?color=%2340BE25&&style=for-the-badge"></img>
+    <img src="https://img.shields.io/codeclimate/maintainability-percentage/fga-eps-mds/2022-2-IsItKbs?color=40BE25&style=for-the-badge"></img>
+</h4>
 
 <br>
 
-<h4 align="center"> 
-    <img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
-</h4>
 
-[Leia isso em português.](https://github.com/fga-eps-mds/2022-2-IsItKbs)
+[*Leia isso em português.*](https://github.com/fga-eps-mds/2022-2-IsItKbs)
 
 ## 📑 Summary
 
 - [](#)
-  - [📑 Summary](#-sumário)
-  - [🔎 Overview](#-visão-geral)
-  - [🛠 Technologies used](#-tecnologias-utilizadas)
-  - [📝 Installation guide](#-guia-de-instalação)
-  - [⚙ Functionalities](#-funcionalidades)
-    - [is_kbs(input_data, analyzer, model)](#is_kbsinput_data-analyzer-model)
-  - [📋 Examples](#-exemplos)
-  - [👨‍🔧 How to contribute?](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/contribution_guide.html)
-  - [📚 Documentation](#-documentação)
-  - [📁 Directories](#-diretórios)
-  - [👨‍💻 Contributors](#-contribuidores)
+  - [📑 Summary](#-summary)
+  - [🔎 Overview](#-overview)
+  - [🛠 Technologies used](#-technologies-used)
+  - [📝 Installation guide](#-installation-guide)
+  - [⚙ Functionalities](#-functionalities)
+  - [📋 Examples](#-examples)
+  - [📚 Documentation](#-documentation)
+  - [📁 Directories](#-directories)
+  - [👨‍🔧 Want to contribute?](#-want-to-contribute?)
+  - [👨‍💻 Contributors](#-contributors)
   - [©Licence](#licença)
     <br>
 
@@ -73,56 +72,147 @@ Ex.:
 
 ## 📝 Installation guide
 
-<li>Python 3 and pip required.</li>
-<li>Install our package with pip in your python terminal (the other necessary libraries are installed automatically with the command below):</li>
+<li>Python3 and pip required.</li>
+<li>Install our package using pip on your python terminal with the following command:</li>
 
 ```
 pip install isitkbs
 ```
+(the other necessary libraries used in this project are installed automatically with the command above)
 
 <br>
 
 ## ⚙ Functionalities
 
-### is_kbs(input_data, analyzer, model)
+### ***isitkbs***
+```python
+isitkbs(model='randomforest')
+```
+Instantiate the object with the desired model.
+
+<br>
+
+### ***wordkbs***
 
 ```python
-from isitkbs import *
-is_kbs(input_data, analyzer, model)
+wordkbs(input_data)
 ```
-
-- input_data: dados de entrada representados por uma string
-- analyzer='word': análise de uma palavra (retorna positivo(1) ou negativo (0) se é keyboard smashing)
-- analyzer='phrases': retorna quais palavras são keyboard smashing de uma frase de entrada
-- model: modelo utilizado ('randomForest' por padrão)
+Analyzes a word and classifies it as keyboard smashing or normal.
 
 <br>
 
-For new versions, the idea is to develop features that help in the treatment of keyboard smashing in texts, databases, among others.
+### ***sentkbs***
+```python
+sentkbs(input_data)
+```
+Retorna uma lista dos keyboard smashings encontrados em uma frase.
 
 <br>
+
+### ***freqkbs***
+```python
+freqkbs(input_data, graph=False)
+```
+Returns a list of keyboard smashings found in a sentence.
+
+<br>
+
+### ***replacekbs***
+```python
+replacekbs(input_data, value=None, inplace=False, just_word=False)
+```
+Replaces keyboard smashing found in a dataframe/list/string, with a user-specified value.
+
+<br>
+
+*In case you want to see the details of the functions, here is the [link to our documentation](https://github.com/fga-eps-mds/2022-2-IsItKbs/blob/main/isitkbs.md).*
+
+<br>
+
 
 ## 📋 Examples
 
+### ***isitkbs***
 ```python
-is_kbs('yyyyyy')
+# Object instantiation
+kbs = isitkbs() # Random Forest
+kbs = isitkbs(model='randomforest') # Random Forest
+kbs = isitkbs(model='naivebayes') # Naive Bayes
+```
+
+<br>
+
+### ***wordkbs***
+```python
+kbs.wordkbs('yyyyyy')
 1
 ```
 
 ```python
-is_kbs('Hello')
+kbs.wordkbs('Hello')
 0
 ```
 
+<br>
+
+### ***sentkbs***
 ```python
-is_kbs('Hello world', analyzer='phrases')
-0
+kbs.sentkbs('Hello world')
+[]
 ```
 
 ```python
-is_kbs('aspdo asocjn', analyzer='phrases')
-[['aspdo'], ['asocjn']]
+kbs.sentkbs('aspdo asocjn')
+['aspdo', 'asocjn']
 ```
+
+<br>
+
+### ***freqkbs***
+```python
+kbs.freqkbs('aaddsffgd', graph=False)
+{'a': 2, 'd': 3, 'f': 2, 'g': 1, 's': 1}
+```
+
+```python
+kbs.freqkbs('aaddsffgd', graph=True)
+{'a': 2, 'd': 3, 'f': 2, 'g': 1, 's': 1}
+```
+
+<img src="https://raw.githubusercontent.com/fga-eps-mds/2022-2-Squad03/main/docs/images/freqkbs_example.png" height=200 width=300></img>
+
+<br>
+
+### ***replacekbs***
+```python
+# Creation of an example DataFrame
+d = {'Example': ["The World is beautiful", "Our project detects khhyaktvb"]}
+df_example = pandas.DataFrame(data=d)
+```
+
+|  Example |
+|----------|
+|  The World is beautiful |
+| Our project detects khhyaktvb |
+
+```python
+kbs.replacekbs(df_example, value="Detected", just_word=False)
+```
+
+|  Example |
+|----------|
+|  The World is beautiful |
+| Detected |
+
+```python
+kbs.replacekbs(df_example, value="Detected", just_word=True)
+```
+
+|  Example |
+|----------|
+| The World is beautiful |
+| Our project detects Detected |
+
 <br>
 
 ## 📚 Documentation
@@ -148,6 +238,12 @@ is_kbs('aspdo asocjn', analyzer='phrases')
 <p>/notebooks <- Jupyter notebooks used for feature testing.<p>
 <p>/src <- Scripts for data processing, feature engineering and algorithm training.<p>
   
+<br>
+
+## 👨‍🔧 Want to contribute
+
+For information on how to contribute to our project, click on this [link.](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/contribution_guide.html)
+
 <br>
 
 ## 👨‍💻 Contributors

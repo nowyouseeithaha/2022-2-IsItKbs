@@ -36,6 +36,7 @@
   - [👨‍🔧 Quer contribuir?](#-quer-contribuir)
   - [👨‍💻 Contribuidores](#-contribuidores)
   - [©Licença](#licença)
+  - [⚰️ Post Mortem](https://github.com/fga-eps-mds/2022-2-IsItKbs/blob/main/post_mortem.md) 
 
 <br>
 

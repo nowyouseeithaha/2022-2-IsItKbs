@@ -123,6 +123,9 @@ Substitui os keyboard smashing encontrados em um dataframe/lista/string, por um 
 
 ### ***isitkbs***
 ```python
+# Importação da classe isistkbs do pacote isitkbs
+from isitkbs import isitkbs 
+
 # Instanciação da classe
 kbs = isitkbs() # Random Forest
 kbs = isitkbs(model='randomforest') # Random Forest
@@ -203,6 +206,7 @@ kbs.replacekbs(input_data=df_exemplo, value="Detectado", just_word=True)
 * [Mapa de histórias de usuário](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/usermap_story.html)<br>
 * [WorkFlow](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/workflow.html)<br>
 * [RoadMap](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/roadmap.html)
+* [Docstrings do Pacote](https://github.com/fga-eps-mds/2022-2-IsItKbs/blob/main/isitkbs.md)
 
 <br>
 

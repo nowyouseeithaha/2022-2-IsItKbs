@@ -10,9 +10,9 @@ warnings.filterwarnings("ignore")
 class isitkbs(object):
 
     def __init__(self, model='randomforest'):
-        """Classe para detecção de keyboard smashing.
+        """Classe para detecção de keyboard smashing. 
 
-        :param model: {'randomforest', 'naivebayes'} Modelo a ser utilizado para detecção de keyboard smashing, default='randomforest'
+        :param model: {'randomforest', 'naivebayes'} Modelo a ser utilizado para detecção de keyboard smashing. O randomforest tem a acurácia ligeiramente maior, contudo é mais lento que o naivebayes, default='randomforest'
         :type model: str, opcional
         """
         self.model = model
@@ -389,3 +389,4 @@ class lex_extractor():
             if cls.__bigramas_proibidos(cls, string): return 1
         except:
             return 0
+        

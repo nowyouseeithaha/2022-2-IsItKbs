@@ -5,6 +5,10 @@
 
 ### _class_ isitkbs.ks.isitkbs(model='randomforest')
 
+* **Atributos**
+
+    
+    * **model** (*string*) – {'randomforest', 'naivebayes'} Modelo a ser utilizado para detecção de keyboard smashing. O randomforest tem a acurácia ligeiramente maior, contudo é mais lento que o naivebayes, default='randomforest'
 
 #### freqkbs(input_data, graph=False)
 Conta a frequência das letras que formam os keyboard smashings identificados em input_data e as retorna como um dicionário, caso graph=True também plota o gráfico correspondente.

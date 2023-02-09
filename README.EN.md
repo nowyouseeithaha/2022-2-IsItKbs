@@ -134,6 +134,9 @@ Replaces keyboard smashing found in a dataframe/list/string, with a user-specifi
 
 ### ***isitkbs***
 ```python
+# Import of isitkbs class from the isitkbs package
+from isitkbs import isitkbs 
+
 # Object instantiation
 kbs = isitkbs() # Random Forest
 kbs = isitkbs(model='randomforest') # Random Forest
@@ -222,6 +225,7 @@ kbs.replacekbs(df_example, value="Detected", just_word=True)
 * [User story map](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/usermap_story.html)<br>
 * [WorkFlow](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/workflow.html)<br>
 * [RoadMap](https://fga-eps-mds.github.io/2022-2-IsItKbs/projeto/roadmap.html)
+* [Package Docstrings](https://github.com/fga-eps-mds/2022-2-IsItKbs/blob/main/isitkbs.md)
 
 <br>
 

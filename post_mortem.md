@@ -58,3 +58,8 @@ Um relato pessoa que antes da disciplina eu era uma pessoa que pesquisava por v�
 Um fato engraçado ao ser apresentado as formar no qual projetos de software são desenvolvidos e o desenrolar de cada dia me fez perde um pouco da “magia da programação”, quando simplesmente não entendia como um projeto era desenvolvido os perrengue e conquistas, mas no final só ajudou a compreender melhor a forma de devo perseguir depois dessa matéria e na carreira no geral de um engenheiro de software.
 
 
+### Paulo Victor (Desenvolvedor)
+A discpilina em geral foi uma ótima experiência, que permitiu a expansão da minha visão de software como todo, além de permitir muitos aprendizados de terminologias, metodologias e principalmente a como buscar informações e pensar naquilo que é importante para o seu produto no desenvolvimento dele. Tive sorte de ficar com um grupo muito bom, que trabalhou , teve comprometimento e contribuiu para que todos possam ter aprendizados na matéria
+
+Para os futuros alunso dessa disciplina, recomendo que se organizem desde o começo da disciplina, e comecem a fazer atividades desde o começo. essa matéria é uma maratona, e não uma corrida. escolher bem os grupos e manter o grupo motivado e trabalhando também é algo fundamental , e tive sorte de possuir colegas inteligentes e dedicados que permitiu que essa matéria fosse bem mais simples do que pensei que seria
+
